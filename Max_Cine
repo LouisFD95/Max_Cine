@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Films au Cinéma</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0f0f0f;
+      color: #fff;
+    }
+    header {
+      background-color: #1c1c1c;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #e50914;
+    }
+    .search-bar {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .search-bar input {
+      padding: 10px;
+      width: 300px;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      font-size: 1rem;
+    }
+    .films-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .film {
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s;
+    }
+    .film:hover {
+      transform: scale(1.05);
+    }
+    .film img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+    .film-info {
+      padding: 15px;
+    }
+    .film-info h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+    .film-info p {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+    .note {
+      color: gold;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎬 Films au Cinéma</h1>
+  </header>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Rechercher un film..." />
+  </div>
+  <div class="films-container" id="filmsContainer">
+    <!-- Les films seront affichés ici -->
+  </div>
+
+  <script>
+    const films = [
+      {
+        titre: 'Joker: Folie à Deux',
+        image: 'https://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg',
+        date: '2 octobre 2025',
+        synopsis: 'La suite du Joker de Todd Phillips, explorant la relation entre Arthur Fleck et Harley Quinn.',
+        note: '8.7'
+      },
+      {
+        titre: 'Deadpool & Wolverine',
+        image: 'https://image.tmdb.org/t/p/w500/fzKWwcaam9QSTaMSJlORuSojxio.jpg',
+        date: '24 juillet 2024',
+        synopsis: 'Deadpool fait équipe avec Wolverine dans une aventure délirante à travers le multivers.',
+        note: '8.3'
+      },
+      {
+        titre: 'Dune: Deuxième Partie',
+        image: 'https://image.tmdb.org/t/p/w500/dune2poster.jpg',
+        date: '1er mars 2024',
+        synopsis: 'Paul Atréides s’allie aux Fremen pour se venger des conspirateurs qui ont détruit sa famille.',
+        note: '8.8'
+      },
+      {
+        titre: 'Venom: The Last Dance',
+        image: 'https://image.tmdb.org/t/p/w500/venom3poster.jpg',
+        date: '24 octobre 2025',
+        synopsis: 'Eddie Brock et Venom affrontent leur destin dans le dernier chapitre explosif de la saga.',
+        note: '7.9'
+      }
+    ];
+
+    const filmsContainer = document.getElementById('filmsContainer');
+
+    function afficherFilms(liste) {
+      filmsContainer.innerHTML = '';
+      liste.forEach(film => {
+        const filmEl = document.createElement('div');
+        filmEl.classList.add('film');
+        filmEl.innerHTML = `
+          <img src="${film.image}" alt="${film.titre}" />
+          <div class="film-info">
+            <h2>${film.titre}</h2>
+            <p><strong>Date de sortie :</strong> ${film.date}</p>
+            <p>${film.synopsis}</p>
+            <p class="note">⭐ ${film.note}/10</p>
+          </div>
+        `;
+        filmsContainer.appendChild(filmEl);
+      });
+    }
+
+    afficherFilms(films);
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const recherche = e.target.value.toLowerCase();
+      const filtres = films.filter(film => film.titre.toLowerCase().includes(recherche));
+      afficherFilms(filtres);
+    });
+  </script>
+</body>
+</html>
